@@ -1,5 +1,7 @@
 package australchess.cli;
 
+import lombok.var;
+
 import java.util.Optional;
 
 public class ParsedPositionParser {

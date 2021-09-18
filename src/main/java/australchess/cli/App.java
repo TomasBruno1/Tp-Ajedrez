@@ -1,6 +1,7 @@
 package australchess.cli;
 
 import com.github.lalyos.jfiglet.FigletFont;
+import lombok.var;
 
 import java.io.IOException;
 import java.util.Scanner;
