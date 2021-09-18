@@ -1,6 +1,9 @@
 package australchess.cli;
 
+import australchess.Factories.BoardFactory;
+import australchess.Factories.LongBoardFactory;
 import com.github.lalyos.jfiglet.FigletFont;
+import lombok.var;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -9,7 +12,8 @@ import java.util.Scanner;
 // TODO: Fill in!
 public class App {
     public static void main(String[] args) throws IOException {
-        final BoardPrinter boardPrinter = new DefaultBoardPrinter();
+        final BoardPrinter boardPrinter = new LongBoardPrinter();
+        final BoardFactory boardFactory = new LongBoardFactory();
 
         printHeader();
         final var firstPlayerId = askForString("Name of player that moves white: ");
@@ -20,7 +24,7 @@ public class App {
         while(shouldContinue()) {
             printCurrentPlayerTurn();
             System.out.println();
-            printBoard(boardPrinter);
+            printBoard(boardPrinter, boardFactory);
             final var positionFrom = askForPosition("Enter position of the piece you want to move");
             final var positionTo = askForPosition("Enter position of cell you want to move it to");
             move(positionFrom, positionTo);
@@ -29,10 +33,9 @@ public class App {
         }
     }
 
-    private static void printBoard(BoardPrinter boardPrinter) {
-        // TODO: provide the board somehow.
-        var positions = new DefaultSomethingClass().getPiecePositions();
-        var boardAsString = boardPrinter.print(positions);
+    private static void printBoard(BoardPrinter boardPrinter, BoardFactory boardFactory) {
+        var board = boardFactory.createBoard();
+        var boardAsString = boardPrinter.print(board.getPositions());
         System.out.println(boardAsString);
     }
 
