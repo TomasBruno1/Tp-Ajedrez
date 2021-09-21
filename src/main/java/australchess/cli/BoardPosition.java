@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public @Data class BoardPosition {
-    private final @Getter Character pieceId;
+    private final @Getter Character pieceId; //TODO migrate type to Piece
     private final @Getter Integer number;
     private final @Getter Character letter;
 }

@@ -14,6 +14,7 @@ public class App {
     public static void main(String[] args) throws IOException {
         final BoardPrinter boardPrinter = new LongBoardPrinter();
         final BoardFactory boardFactory = new LongBoardFactory();
+        final Board board = boardFactory.createBoard();
 
         printHeader();
         final var firstPlayerId = askForString("Name of player that moves white: ");
@@ -24,7 +25,7 @@ public class App {
         while(shouldContinue()) {
             printCurrentPlayerTurn();
             System.out.println();
-            printBoard(boardPrinter, boardFactory);
+            printBoard(boardPrinter, board);
             final var positionFrom = askForPosition("Enter position of the piece you want to move");
             final var positionTo = askForPosition("Enter position of cell you want to move it to");
             move(positionFrom, positionTo);
@@ -33,8 +34,7 @@ public class App {
         }
     }
 
-    private static void printBoard(BoardPrinter boardPrinter, BoardFactory boardFactory) {
-        var board = boardFactory.createBoard();
+    private static void printBoard(BoardPrinter boardPrinter, Board board) {
         var boardAsString = boardPrinter.print(board.getPositions());
         System.out.println(boardAsString);
     }
