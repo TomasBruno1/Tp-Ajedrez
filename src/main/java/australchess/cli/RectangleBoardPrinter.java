@@ -1,5 +1,6 @@
 package australchess.cli;
 
+import australchess.Pieces.Piece;
 import lombok.var;
 
 import java.util.List;
@@ -24,6 +25,6 @@ public abstract class RectangleBoardPrinter implements BoardPrinter {
     }
 
     private static Optional<Character> findPiece(Character file, Integer rank, List<BoardPosition> positions) {
-        return positions.stream().filter(p -> p.getLetter() == file && p.getNumber().equals(rank)).findFirst().map(BoardPosition::getPieceId);
+        return positions.stream().filter(p -> p.getLetter() == file && p.getNumber().equals(rank)).findFirst().map(BoardPosition::getPiece).map(Piece::getPieceId);
     }
 }

@@ -1,50 +1,39 @@
 package australchess.Factories;
 
+import australchess.Pieces.Piece;
 import australchess.cli.Board;
 import australchess.cli.BoardPosition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultBoardFactory implements BoardFactory {
     @Override
-    public Board createBoard() {
-        List<BoardPosition> positions = List.of(
-                new BoardPosition('R', 1, 'a'),
-                new BoardPosition('N', 2, 'a'),
-                new BoardPosition('B', 3, 'a'),
-                new BoardPosition('K', 4, 'a'),
-                new BoardPosition('Q', 5, 'a'),
-                new BoardPosition('B', 6, 'a'),
-                new BoardPosition('N', 7, 'a'),
-                new BoardPosition('R', 8, 'a'),
+    public Board createBoard(Piece[] whitePieces, Piece[] blackPieces) {
+        List<BoardPosition> positions = new ArrayList<>(64);
 
-                new BoardPosition('P', 1, 'b'),
-                new BoardPosition('P', 2, 'b'),
-                new BoardPosition('P', 3, 'b'),
-                new BoardPosition('P', 4, 'b'),
-                new BoardPosition('P', 5, 'b'),
-                new BoardPosition('P', 6, 'b'),
-                new BoardPosition('P', 7, 'b'),
-                new BoardPosition('P', 8, 'b'),
+        int i = 0;
+        for (char letter = 'a'; letter <= 'b'; letter++) {
+            for (int number = 1; number <= 8; number++) {
+                positions.add(new BoardPosition(whitePieces[i], number, letter));
+                i++;
+            }
+        }
 
-                new BoardPosition('P', 1, 'g'),
-                new BoardPosition('P', 2, 'g'),
-                new BoardPosition('P', 3, 'g'),
-                new BoardPosition('P', 4, 'g'),
-                new BoardPosition('P', 5, 'g'),
-                new BoardPosition('P', 6, 'g'),
-                new BoardPosition('P', 7, 'g'),
-                new BoardPosition('P', 8, 'g'),
+        i = 0;
+        for (char letter = 'h'; letter >= 'g'; letter--) {
+            for (int number = 1; number <= 8; number++) {
+                positions.add(new BoardPosition(blackPieces[i], number, letter));
+                i++;
+            }
+        }
 
-                new BoardPosition('R', 1, 'h'),
-                new BoardPosition('N', 2, 'h'),
-                new BoardPosition('B', 3, 'h'),
-                new BoardPosition('K', 4, 'h'),
-                new BoardPosition('Q', 5, 'h'),
-                new BoardPosition('B', 6, 'h'),
-                new BoardPosition('N', 7, 'h'),
-                new BoardPosition('R', 8, 'h')
-        );
+        for (char letter = 'c'; letter <= 'f'; letter++) {
+            for (int number = 1; number <= 8; number++) {
+                positions.add(new BoardPosition(null, number, letter));
+            }
+        }
+
         return new Board(positions);
     }
 }

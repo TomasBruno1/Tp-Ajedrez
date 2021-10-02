@@ -5,6 +5,9 @@ import lombok.Data;
 @Data
 public abstract class Piece implements Movable {
     String color;
-    String name;
     Character pieceId;
+
+    public Piece(String color){
+        this.color = color;
+    }
 }
