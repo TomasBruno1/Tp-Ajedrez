@@ -1,6 +1,6 @@
-package australchess.Factories;
+package australchess.factories;
 
-import australchess.Pieces.*;
+import australchess.pieces.*;
 
 public class DefaultPieceSetFactory implements PieceSetFactory {
     @Override

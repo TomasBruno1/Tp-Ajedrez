@@ -1,6 +1,6 @@
-package australchess.Factories;
+package australchess.factories;
 
-import australchess.Pieces.Piece;
+import australchess.pieces.Piece;
 
 public interface PieceSetFactory {
     Piece[] createPieceSet(String color);

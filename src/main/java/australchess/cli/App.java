@@ -10,7 +10,7 @@ import java.util.Scanner;
 // TODO: Fill in!
 public class App {
 
-    final static BoardPrinter boardPrinter = new LongBoardPrinter();
+    final static BoardPrinter boardPrinter = new DefaultBoardPrinter();
     static GameManager gameManager;
 
     public static void main(String[] args) throws IOException {
@@ -29,7 +29,7 @@ public class App {
             printBoard();
             final var positionFrom = askForPosition("Enter position of the piece you want to move");
             final var positionTo = askForPosition("Enter position of cell you want to move it to");
-            move(positionFrom, positionTo);
+            gameManager.move(positionFrom, positionTo);
             System.out.println();
             System.out.println();
         }
@@ -41,12 +41,8 @@ public class App {
         System.out.println(boardAsString);
     }
 
-    private static void move(ParsedPosition from, ParsedPosition to) {
-        // TODO implement!
-    }
-
     private static Player playerToMove() {
-        return gameManager.getCurrentPlayer(); //TODO Implement!
+        return gameManager.getCurrentPlayer();
     }
 
     private static ParsedPosition askForPosition(String question) {

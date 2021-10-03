@@ -1,13 +1,18 @@
 package australchess.cli;
 
-import australchess.Pieces.Piece;
+import australchess.pieces.Piece;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public @Data class BoardPosition {
-    private final @Getter Piece piece; //TODO migrate type to Piece
-    private final @Getter Integer number;
-    private final @Getter Character letter;
+    private Piece piece;
+    private final Integer number;
+    private final Character letter;
+
+    public BoardPosition(Piece piece, Integer number, Character letter) {
+        this.piece = piece;
+        this.number = number;
+        this.letter = letter;
+    }
 }

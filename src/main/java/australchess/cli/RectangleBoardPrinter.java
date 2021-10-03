@@ -1,6 +1,6 @@
 package australchess.cli;
 
-import australchess.Pieces.Piece;
+import australchess.pieces.Piece;
 import lombok.var;
 
 import java.util.List;

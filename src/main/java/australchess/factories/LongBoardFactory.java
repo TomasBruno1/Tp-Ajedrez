@@ -1,13 +1,13 @@
-package australchess.Factories;
+package australchess.factories;
 
-import australchess.Pieces.Piece;
+import australchess.pieces.Piece;
 import australchess.cli.Board;
 import australchess.cli.BoardPosition;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultBoardFactory implements BoardFactory {
+public class LongBoardFactory implements BoardFactory {
     @Override
     public Board createBoard(Piece[] whitePieces, Piece[] blackPieces) {
         List<BoardPosition> positions = new ArrayList<>(64);
@@ -21,14 +21,14 @@ public class DefaultBoardFactory implements BoardFactory {
         }
 
         i = 0;
-        for (char letter = 'h'; letter >= 'g'; letter--) {
+        for (char letter = 'l'; letter >= 'k'; letter--) {
             for (int number = 1; number <= 8; number++) {
                 positions.add(new BoardPosition(blackPieces[i], number, letter));
                 i++;
             }
         }
 
-        for (char letter = 'c'; letter <= 'f'; letter++) {
+        for (char letter = 'c'; letter <= 'j'; letter++) {
             for (int number = 1; number <= 8; number++) {
                 positions.add(new BoardPosition(null, number, letter));
             }
