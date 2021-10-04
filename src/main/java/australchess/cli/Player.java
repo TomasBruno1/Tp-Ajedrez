@@ -6,6 +6,6 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class Player {
-    String color;
-    String name;
+    private String color;
+    private String name;
 }

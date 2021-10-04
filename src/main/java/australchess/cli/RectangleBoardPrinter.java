@@ -13,8 +13,13 @@ public abstract class RectangleBoardPrinter implements BoardPrinter {
         for(var file : files) {
             builder.append(file).append("|");
             for(var rank : ranks) {
-                var toPrint = findPiece(file, rank, positions).orElse(' ');
-                builder.append(toPrint).append("|");
+                Optional<Piece> piece = findPiece(file, rank, positions);
+                if(piece.isPresent()) {
+                    if(piece.get().getColor().equals("black")) builder.append("\u001B[31m");
+                    builder.append(piece.get().getPieceId());
+                    builder.append("\u001B[0m");
+                } else builder.append(' ');
+                builder.append("|");
             }
             builder.append("\n");
         }
@@ -24,7 +29,7 @@ public abstract class RectangleBoardPrinter implements BoardPrinter {
         return builder.toString();
     }
 
-    private static Optional<Character> findPiece(Character file, Integer rank, List<BoardPosition> positions) {
-        return positions.stream().filter(p -> p.getLetter() == file && p.getNumber().equals(rank)).findFirst().map(BoardPosition::getPiece).map(Piece::getPieceId);
+    private static Optional<Piece> findPiece(Character file, Integer rank, List<BoardPosition> positions) {
+        return positions.stream().filter(p -> p.getLetter() == file && p.getNumber().equals(rank)).findFirst().map(BoardPosition::getPiece);
     }
 }

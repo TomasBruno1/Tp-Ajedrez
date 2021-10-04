@@ -1,6 +1,7 @@
 package australchess.movement.validators;
 
 import australchess.cli.Board;
+import australchess.cli.BoardPosition;
 import australchess.movement.Movement;
 
 public class BishopFreePath implements FreePath{
@@ -15,7 +16,9 @@ public class BishopFreePath implements FreePath{
         int dirY = destY>srcY ? 1 : -1;
 
         for (int i=1;i<Math.abs(destX-srcX);++i) {
-            if (board.getPosition(srcX+i*dirX, (char) (srcY+i*dirY)).getPiece() != null) return false;
+            BoardPosition position = board.getPosition(srcX + i * dirX, (char) (srcY + i * dirY));
+            if (position != null)
+                if(position.getPiece() != null) return false;
         }
         return true;
     }

@@ -12,4 +12,12 @@ public class Movement {
         this.from = from;
         this.to = to;
     }
+
+    public int getOffsetX() {
+        return to.getNumber() - from.getNumber();
+    }
+
+    public int getOffsetY() {
+        return to.getLetter() - from.getLetter();
+    }
 }

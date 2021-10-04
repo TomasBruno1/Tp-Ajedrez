@@ -12,13 +12,13 @@ public class Knight extends Piece {
     public Knight(String color) {
         super(color);
         this.pieceId = 'N';
-        this.validators = List.of(new SelfCheck(GameManager.checkDetector), new TargetSquare());
+        this.validators = List.of(new TargetSquare(), new SelfCheck(GameManager.checkDetector));
     }
 
     @Override
     public boolean isLegalMovement(Movement movement) {
-        int offsetY = getOffsetY(movement);
-        int offsetX = getOffsetX(movement);
+        int offsetY = movement.getOffsetY();
+        int offsetX = movement.getOffsetX();
         return Math.abs(offsetX * offsetY) == 2;
     }
 }

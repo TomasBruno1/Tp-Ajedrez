@@ -4,6 +4,8 @@ import australchess.factories.*;
 import australchess.movement.Movement;
 import lombok.Getter;
 
+import java.util.List;
+
 public class GameManager {
     final BoardFactory boardFactory = new DefaultBoardFactory();
     final PieceSetFactory pieceSetFactory = new DefaultPieceSetFactory();
@@ -23,7 +25,22 @@ public class GameManager {
         return players[currentPlayerIndex];
     }
 
-    public static boolean shouldContinue() {
+    public boolean shouldContinue() {
+        if(checkDetector.isChecked(board, getCurrentPlayer().getColor())){
+            boolean isCheckmated = true;
+            List<BoardPosition> piecePositions = board.getPiecePositions(getCurrentPlayer().getColor());
+            for (BoardPosition piecePosition : piecePositions) {
+                if(piecePosition.getPiece().canMove(board, piecePosition)){
+                    isCheckmated = false;
+                    break;
+                }
+            }
+            if(isCheckmated) {
+                System.out.printf("%s is checkmated!%n", getCurrentPlayer().getName());
+                return false;
+            }
+            System.out.printf("%s is checked%n", getCurrentPlayer().getName());
+        }
         return true; //TODO Implement!
     }
 
@@ -37,9 +54,6 @@ public class GameManager {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-
-        //TODO imlement check detection
     }
 
     private void nextPlayer() {

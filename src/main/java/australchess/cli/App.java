@@ -23,16 +23,20 @@ public class App {
 
         gameManager = new GameManager(whitePlayerName, blackPlayerName);
 
-        while(GameManager.shouldContinue()) {
+        while(gameManager.shouldContinue()) {
             printCurrentPlayerTurn();
             System.out.println();
             printBoard();
             final var positionFrom = askForPosition("Enter position of the piece you want to move");
             final var positionTo = askForPosition("Enter position of cell you want to move it to");
             gameManager.move(positionFrom, positionTo);
+
             System.out.println();
             System.out.println();
         }
+
+        System.out.println("The game is over!");
+        printBoard();
     }
 
     private static void printBoard() {

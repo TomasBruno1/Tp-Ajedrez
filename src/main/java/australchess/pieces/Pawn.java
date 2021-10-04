@@ -1,5 +1,7 @@
 package australchess.pieces;
 
+import australchess.cli.Board;
+import australchess.cli.BoardPosition;
 import australchess.cli.GameManager;
 import australchess.movement.Movement;
 import australchess.movement.validators.FreePath;
@@ -17,13 +19,13 @@ public class Pawn extends Piece{
     public Pawn(String color) {
         super(color);
         this.pieceId = 'P';
-        this.validators = List.of(new PawnFreePath(), new SelfCheck(GameManager.checkDetector), new TargetSquare());
+        this.validators = List.of(new PawnFreePath(), new TargetSquare(), new SelfCheck(GameManager.checkDetector));
     }
 
     @Override
     public boolean isLegalMovement(Movement movement) {
-        int offsetY = getOffsetY(movement);
-        int offsetX = getOffsetX(movement);
+        int offsetY = movement.getOffsetY();
+        int offsetX = movement.getOffsetX();
         if(color.equals("white")){
             if(movement.getTo().getPiece() != null) return Math.abs(offsetX) == 1 && offsetY == 1;
             return (offsetX == 0 && offsetY == 1) || (!moved && offsetX == 0 && offsetY == 2);
@@ -33,4 +35,11 @@ public class Pawn extends Piece{
         }
     }
 
+    public boolean isAtEnd(Board board, BoardPosition position) {
+        if(color.equals("white")){
+            return board.getPosition(position.getNumber(), (char) (position.getLetter() + 1)) == null;
+        } else {
+            return board.getPosition(position.getNumber(), (char) (position.getLetter() - 1)) == null;
+        }
+    }
 }
