@@ -38,6 +38,7 @@ public class Board {
         if(pieceToMove.getClass() == King.class) ((King) pieceToMove).setMoved(true);
     }
 
+    // podria ser otro validator para el rey con un OR.
     private void castle(Movement movement) {
         int dirX = movement.getTo().getNumber() > movement.getFrom().getNumber() ? 1 : -1;
         BoardPosition rookPosition = getPosition(movement.getTo().getNumber() + dirX, movement.getTo().getLetter());

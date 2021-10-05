@@ -4,6 +4,8 @@ import australchess.cli.Board;
 import australchess.movement.Movement;
 import lombok.AllArgsConstructor;
 
+
+//Podria ser un And o Or validator que le paso dos y se fija si se cumplen...
 @AllArgsConstructor
 public class QueenFreePath implements FreePath{
     final private BishopFreePath bishopFreePath;

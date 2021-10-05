@@ -6,8 +6,6 @@ import lombok.var;
 import java.io.IOException;
 import java.util.Scanner;
 
-// Starter CLI interface for the chess game, modify as you wish.
-// TODO: Fill in!
 public class App {
 
     final static BoardPrinter boardPrinter = new DefaultBoardPrinter();

@@ -21,6 +21,8 @@ public class Queen extends Piece{
         int offsetY = movement.getOffsetY();
         int offsetX = movement.getOffsetX();
         if(offsetX == 0 && offsetY == 0) return false;
+
+        //Legal movements for each piece
         return Math.abs(offsetX) == Math.abs(offsetY) || offsetX == 0 || offsetY == 0;
     }
 }

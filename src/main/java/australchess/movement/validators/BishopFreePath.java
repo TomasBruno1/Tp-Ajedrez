@@ -4,6 +4,7 @@ import australchess.cli.Board;
 import australchess.cli.BoardPosition;
 import australchess.movement.Movement;
 
+// DiagonalFreePath
 public class BishopFreePath implements FreePath{
     @Override
     public boolean validate(Board board, Movement movement) {

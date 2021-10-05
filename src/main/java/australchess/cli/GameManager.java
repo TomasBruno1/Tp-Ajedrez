@@ -27,6 +27,9 @@ public class GameManager {
 
     public boolean shouldContinue() {
         if(checkDetector.isChecked(board, getCurrentPlayer().getColor())){
+
+            // why not Checkmate detector?
+            // criterio -> es facil testear esto?
             boolean isCheckmated = true;
             List<BoardPosition> piecePositions = board.getPiecePositions(getCurrentPlayer().getColor());
             for (BoardPosition piecePosition : piecePositions) {
