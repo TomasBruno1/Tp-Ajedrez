@@ -3,7 +3,6 @@ package australchess.pieces;
 import australchess.cli.Board;
 import australchess.cli.BoardPosition;
 import australchess.movement.Movement;
-import australchess.movement.generators.KingMovementGenerator;
 import australchess.movement.generators.MovementGenerator;
 import australchess.movement.validators.MovementValidator;
 import lombok.Data;
@@ -19,7 +18,7 @@ public abstract class Piece implements Movable {
 
     public Piece(String color){
         this.color = color;
-        this.generator = new KingMovementGenerator();
+        this.generator = new MovementGenerator();
     }
 
     public boolean validateMove(Board board, Movement movement){
