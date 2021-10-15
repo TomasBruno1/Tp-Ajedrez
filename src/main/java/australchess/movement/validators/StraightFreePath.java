@@ -2,11 +2,18 @@ package australchess.movement.validators;
 
 import australchess.cli.Board;
 import australchess.cli.BoardPosition;
+import australchess.movement.BoardMovement;
 import australchess.movement.Movement;
 
-public class RookFreePath implements FreePath {
+public class StraightFreePath implements MovementValidator {
+
     @Override
-    public boolean validate(Board board, Movement movement) {
+    public boolean test(BoardMovement boardMovement) {
+        Movement movement = boardMovement.getMovement();
+        Board board = boardMovement.getBoard();
+
+        if(movement.getOffsetX() != 0 && movement.getOffsetY() != 0) return false;
+
         BoardPosition from = movement.getFrom();
         BoardPosition to = movement.getTo();
         int maxNumber = from.getNumber() > to.getNumber() ? from.getNumber() : to.getNumber();

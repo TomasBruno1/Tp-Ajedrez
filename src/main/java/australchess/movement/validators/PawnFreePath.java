@@ -1,11 +1,15 @@
 package australchess.movement.validators;
 
 import australchess.cli.Board;
+import australchess.movement.BoardMovement;
 import australchess.movement.Movement;
 
-public class PawnFreePath implements FreePath {
+public class PawnFreePath implements MovementValidator {
+
     @Override
-    public boolean validate(Board board, Movement movement) {
+    public boolean test(BoardMovement boardMovement) {
+        Movement movement = boardMovement.getMovement();
+        Board board = boardMovement.getBoard();
 
         int dirY = movement.getTo().getLetter() > movement.getFrom().getLetter() ? 1 : -1;
         if(Math.abs(movement.getFrom().getLetter() - movement.getTo().getLetter()) == 2) {

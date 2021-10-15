@@ -1,11 +1,13 @@
 package australchess.cli;
 
+import australchess.movement.BoardMovement;
 import australchess.movement.Movement;
 import australchess.pieces.*;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class Board {
@@ -22,8 +24,17 @@ public class Board {
         if(!pieceToMove.isLegalMovement(movement)) throw new RuntimeException("That piece does not move like that.");
         if(!pieceToMove.validateMove(this, movement)) throw new RuntimeException("That movement is not valid!");
         if(pieceToMove.getClass() == King.class && ((King) pieceToMove).isCastling(movement)) {
-            castle(movement);
-            return;
+            if(((King) pieceToMove).testCastling(new BoardMovement(this, movement))) {
+                int dirX = movement.getTo().getNumber() > movement.getFrom().getNumber() ? 1 : -1;
+                BoardPosition rookPosition = findCastlingRookPosition(movement, dirX);
+
+                movement.getTo().setPiece(movement.getFrom().getPiece());
+                movement.getFrom().setPiece(null);
+                getPosition(movement.getTo().getNumber() - dirX, movement.getTo().getLetter()).setPiece(rookPosition.getPiece());
+                rookPosition.setPiece(null);
+                return;
+            }
+            throw new RuntimeException("That movement is not valid");
         }
         movement.getFrom().setPiece(null);
         movement.getTo().setPiece(pieceToMove);
@@ -38,26 +49,13 @@ public class Board {
         if(pieceToMove.getClass() == King.class) ((King) pieceToMove).setMoved(true);
     }
 
-    // podria ser otro validator para el rey con un OR.
-    private void castle(Movement movement) {
-        int dirX = movement.getTo().getNumber() > movement.getFrom().getNumber() ? 1 : -1;
-        BoardPosition rookPosition = getPosition(movement.getTo().getNumber() + dirX, movement.getTo().getLetter());
-        if(rookPosition == null || rookPosition.getPiece() == null || rookPosition.getPiece().getClass() != Rook.class) throw new RuntimeException("That movement is not valid.");
-        Rook rook = (Rook) rookPosition.getPiece();
-        if(!rook.canCastle()) throw new RuntimeException("That movement is not valid.");
-        if(!validateCastlingPath(movement, dirX)) throw new RuntimeException("That movement is not valid.");
-        movement.getTo().setPiece(movement.getFrom().getPiece());
-        movement.getFrom().setPiece(null);
-        rookPosition.setPiece(null);
-        getPosition(movement.getTo().getNumber() - dirX, movement.getTo().getLetter()).setPiece(rook);
-    }
-
-    private boolean validateCastlingPath(Movement movement, int dirX) {
-        int offsetX = Math.abs(movement.getOffsetX());
-        for (int i = 1; i <= offsetX; i++) {
-            if(getPosition(movement.getFrom().getNumber() + dirX*i, movement.getFrom().getLetter()).getPiece() != null) return false;
-        }
-        return true;
+    public BoardPosition findCastlingRookPosition(Movement movement, int dirX) {
+        Character letter = movement.getFrom().getLetter();
+        List<BoardPosition> rookPositions = getPiecePositions(movement.getFrom().getPiece().getColor()).stream().filter(e -> e.getPiece().getPieceId() == 'R' && e.getLetter() == letter).collect(Collectors.toList());
+        if(dirX > 0) rookPositions = rookPositions.stream().filter(e -> e.getNumber() > movement.getFrom().getNumber()).collect(Collectors.toList());
+        else rookPositions = rookPositions.stream().filter(e -> e.getNumber() < movement.getFrom().getNumber()).collect(Collectors.toList());
+        if(rookPositions.isEmpty()) return null;
+        return rookPositions.get(0);
     }
 
     public BoardPosition getPosition(Integer number, Character letter){

@@ -2,6 +2,7 @@ package australchess.pieces;
 
 import australchess.cli.Board;
 import australchess.cli.BoardPosition;
+import australchess.movement.BoardMovement;
 import australchess.movement.Movement;
 import australchess.movement.generators.MovementGenerator;
 import australchess.movement.validators.MovementValidator;
@@ -23,7 +24,7 @@ public abstract class Piece implements Movable {
 
     public boolean validateMove(Board board, Movement movement){
         for (MovementValidator validator : validators) {
-            if(!validator.validate(board, movement)) return false;
+            if(!validator.test(new BoardMovement(board, movement))) return false;
         }
         return true;
     }

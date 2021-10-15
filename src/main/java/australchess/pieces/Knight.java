@@ -2,7 +2,6 @@ package australchess.pieces;
 
 import australchess.cli.GameManager;
 import australchess.movement.Movement;
-import australchess.movement.validators.FreePath;
 import australchess.movement.validators.SelfCheck;
 import australchess.movement.validators.TargetSquare;
 

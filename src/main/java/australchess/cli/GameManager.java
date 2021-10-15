@@ -14,6 +14,7 @@ public class GameManager {
     int currentPlayerIndex = 0;
 
     public static CheckDetector checkDetector = new DefaultCheckDetector();
+    public static CheckmateDetector checkmateDetector = new DefaultCheckmateDetector();
 
     public GameManager(String whitePlayer, String blackPlayer) {
         board = boardFactory.createBoard(pieceSetFactory.createPieceSet("white"), pieceSetFactory.createPieceSet("black"));
@@ -28,17 +29,9 @@ public class GameManager {
     public boolean shouldContinue() {
         if(checkDetector.isChecked(board, getCurrentPlayer().getColor())){
 
-            // why not Checkmate detector?
-            // criterio -> es facil testear esto?
-            boolean isCheckmated = true;
-            List<BoardPosition> piecePositions = board.getPiecePositions(getCurrentPlayer().getColor());
-            for (BoardPosition piecePosition : piecePositions) {
-                if(piecePosition.getPiece().canMove(board, piecePosition)){
-                    isCheckmated = false;
-                    break;
-                }
-            }
-            if(isCheckmated) {
+            boolean checkmated = checkmateDetector.isCheckmated(board, getCurrentPlayer().getColor());
+
+            if(checkmated) {
                 System.out.printf("%s is checkmated!%n", getCurrentPlayer().getName());
                 return false;
             }

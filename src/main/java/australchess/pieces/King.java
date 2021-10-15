@@ -1,8 +1,9 @@
 package australchess.pieces;
 
 import australchess.cli.GameManager;
+import australchess.movement.BoardMovement;
 import australchess.movement.Movement;
-import australchess.movement.validators.FreePath;
+import australchess.movement.validators.Castling;
 import australchess.movement.validators.SelfCheck;
 import australchess.movement.validators.TargetSquare;
 import lombok.Setter;
@@ -12,6 +13,8 @@ import java.util.List;
 public class King extends Piece {
     @Setter
     boolean moved = false;
+
+    Castling castlingValidator = new Castling();
 
     public King(String color) {
         super(color);
@@ -25,7 +28,7 @@ public class King extends Piece {
         int offsetX = movement.getOffsetX();
         if(offsetX == 0 && offsetY == 0) return false;
 
-        if(offsetY == 0 && Math.abs(offsetX) > 1 && !moved) return true;
+        if(offsetY == 0 && Math.abs(offsetX) == 2 && !moved) return true;
 
         return Math.abs(offsetX) <= 1 && Math.abs(offsetY) <= 1;
     }
@@ -33,6 +36,10 @@ public class King extends Piece {
     public boolean isCastling(Movement movement) {
         int offsetY = movement.getOffsetY();
         int offsetX = movement.getOffsetX();
-        return offsetY == 0 && Math.abs(offsetX) > 1 && !moved;
+        return offsetY == 0 && Math.abs(offsetX) == 2 && !moved;
+    }
+
+    public boolean testCastling(BoardMovement boardMovement) {
+        return castlingValidator.test(boardMovement);
     }
 }

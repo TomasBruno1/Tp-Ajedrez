@@ -4,7 +4,6 @@ import australchess.cli.Board;
 import australchess.cli.BoardPosition;
 import australchess.cli.GameManager;
 import australchess.movement.Movement;
-import australchess.movement.validators.FreePath;
 import australchess.movement.validators.PawnFreePath;
 import australchess.movement.validators.SelfCheck;
 import australchess.movement.validators.TargetSquare;

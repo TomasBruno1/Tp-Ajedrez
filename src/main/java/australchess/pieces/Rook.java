@@ -2,7 +2,7 @@ package australchess.pieces;
 
 import australchess.cli.GameManager;
 import australchess.movement.Movement;
-import australchess.movement.validators.RookFreePath;
+import australchess.movement.validators.StraightFreePath;
 import australchess.movement.validators.SelfCheck;
 import australchess.movement.validators.TargetSquare;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public class Rook extends Piece{
     public Rook(String color) {
         super(color);
         this.pieceId = 'R';
-        this.validators = List.of(new RookFreePath(), new TargetSquare(), new SelfCheck(GameManager.checkDetector));
+        this.validators = List.of(new StraightFreePath(), new TargetSquare(), new SelfCheck(GameManager.checkDetector));
     }
 
     @Override

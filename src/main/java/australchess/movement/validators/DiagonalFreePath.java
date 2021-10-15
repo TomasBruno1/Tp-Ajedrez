@@ -2,12 +2,20 @@ package australchess.movement.validators;
 
 import australchess.cli.Board;
 import australchess.cli.BoardPosition;
+import australchess.movement.BoardMovement;
 import australchess.movement.Movement;
 
-// DiagonalFreePath
-public class BishopFreePath implements FreePath{
+public class DiagonalFreePath implements MovementValidator {
+
     @Override
-    public boolean validate(Board board, Movement movement) {
+    public boolean test(BoardMovement boardMovement) {
+        Movement movement = boardMovement.getMovement();
+        Board board = boardMovement.getBoard();
+
+        int offsetY = movement.getOffsetY();
+        int offsetX = movement.getOffsetX();
+        if (Math.abs(offsetX) != Math.abs(offsetY)) return false;
+
         int srcX = movement.getFrom().getNumber();
         int srcY = movement.getFrom().getLetter();
         int destX = movement.getTo().getNumber();

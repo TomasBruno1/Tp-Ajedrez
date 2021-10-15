@@ -2,8 +2,7 @@ package australchess.pieces;
 
 import australchess.cli.GameManager;
 import australchess.movement.Movement;
-import australchess.movement.validators.BishopFreePath;
-import australchess.movement.validators.FreePath;
+import australchess.movement.validators.DiagonalFreePath;
 import australchess.movement.validators.SelfCheck;
 import australchess.movement.validators.TargetSquare;
 
@@ -13,7 +12,7 @@ public class Bishop extends Piece {
     public Bishop(String color) {
         super(color);
         this.pieceId = 'B';
-        this.validators = List.of(new BishopFreePath(), new TargetSquare(), new SelfCheck(GameManager.checkDetector));
+        this.validators = List.of(new DiagonalFreePath(), new TargetSquare(), new SelfCheck(GameManager.checkDetector));
     }
 
     @Override
